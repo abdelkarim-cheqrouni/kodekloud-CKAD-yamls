@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        tier: busybox-pod
+        name: busybox-pod
     spec:
       containers:
       - name: busybox-container
