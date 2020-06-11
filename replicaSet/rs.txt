@@ -1,0 +1,1 @@
+rs ensures that desired num of pods always run
