@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: request-management
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: request-management
+      labels:
+        app: request-management
+    spec:
+      containers:
+      - name: request-management
+        image: abdelkarim123/spring-request-management:2.0.6
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: CM_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: cm-config
+                key: cm_host

@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: api-gateway
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: api-gateway
+        env:
+          - name: CM_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: cm-config
+                key: cm_host
+          - name: RM_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: rm-config
+                key: rm_host
+          - name: AM_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: am-config
+                key: am_host
+        image: abdelkarim123/spring-api-gateway:2.0.0
+        imagePullPolicy: IfNotPresent

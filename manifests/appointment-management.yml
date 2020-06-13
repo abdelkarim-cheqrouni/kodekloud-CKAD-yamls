@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spring-boot-appointment
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: spring-boot-appointment
+      labels:
+        app: spring-boot-appointment
+    spec:
+      containers:
+      - name: spring-boot-appointment
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres_user
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: postgres-config
+                key: postgres_password
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: hostname-config
+                key: postgres_host
+        image: abdelkarim123/spring-appointment-management:2.0.0
+        imagePullPolicy: IfNotPresent
