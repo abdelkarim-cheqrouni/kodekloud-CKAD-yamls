@@ -37,7 +37,7 @@ spec:
             claimName: postgres-pv-claim
       containers:
         - image: postgres
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           name: postgres
           env:
             - name: POSTGRES_USER
