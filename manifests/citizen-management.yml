@@ -4,6 +4,9 @@ metadata:
   name: spring-boot-postgres-sample
   namespace: default
 spec:
+  selector:
+    matchLables:
+      app: spring-boot-postgres-sample
   replicas: 1
   template:
     metadata:
