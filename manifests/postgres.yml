@@ -25,7 +25,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-    name: postgres
+      name: postgres
   template:
     metadata:
       labels:
