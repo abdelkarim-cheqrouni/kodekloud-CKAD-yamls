@@ -23,3 +23,5 @@ spec:
         httpGet:
           path: /live
           port: 8080
+        initialDelaySeconds: 80
+        periodSeconds: 1
