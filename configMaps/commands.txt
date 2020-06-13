@@ -1,0 +1,1 @@
+kubectl create secret generic db-secret --from-literal=DBHost=sql01 --from-literal=DBUser=root --from-literal=DB_Password=password123
