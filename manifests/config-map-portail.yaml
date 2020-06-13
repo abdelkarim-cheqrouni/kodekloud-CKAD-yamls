@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-portail
+  namespace: default
+data:
+  am_host: svc-appointment
+  cm_host: svc-citizen
+  rm_host: svc-request
+  postgres_host: postgres

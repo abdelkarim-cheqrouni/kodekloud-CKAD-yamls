@@ -1,21 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-boot-postgres-sample
+  name: citizen-management
+  labels:
+    app: citizen-management
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: spring-boot-postgres-sample
+      app: citizen-management
   replicas: 1
   template:
     metadata:
-      name: spring-boot-postgres-sample
+      name: citizenPod1
       labels:
-        app: spring-boot-postgres-sample
+        app: citizen-management
     spec:
       containers:
-      - name: spring-boot-postgres-sample
+      - name: citizen-container-1
         env:
           - name: POSTGRES_USER
             valueFrom:
@@ -30,7 +32,18 @@ spec:
           - name: POSTGRES_HOST
             valueFrom:
               configMapKeyRef:
-                name: hostname-config
+                name: config-map-portail
                 key: postgres_host
         image: abdelkarim123/spring-citizen-management:2.0.0
         imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-citizen
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8081
+  selector:
+    app: citizen-management

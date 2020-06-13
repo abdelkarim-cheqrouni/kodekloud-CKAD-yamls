@@ -23,9 +23,6 @@ kind: Deployment
 metadata:
   name: postgres
 spec:
-  selector:
-    matchLabels:
-      app: postgres
   template:
     metadata:
       labels:
@@ -37,7 +34,7 @@ spec:
             claimName: postgres-pv-claim
       containers:
         - image: postgres
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
           name: postgres
           env:
             - name: POSTGRES_USER

@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-gateway
+  labels:
+    name: api-gateway
   namespace: default
 spec:
   replicas: 1
@@ -17,17 +19,28 @@ spec:
           - name: CM_HOST
             valueFrom:
               configMapKeyRef:
-                name: cm-config
+                name: config-map-portail
                 key: cm_host
           - name: RM_HOST
             valueFrom:
               configMapKeyRef:
-                name: rm-config
+                name: config-map-portail
                 key: rm_host
           - name: AM_HOST
             valueFrom:
               configMapKeyRef:
-                name: am-config
+                name: config-map-portail
                 key: am_host
         image: abdelkarim123/spring-api-gateway:2.0.0
         imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-api
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 9090
+  selector:
+    app: api-gateway

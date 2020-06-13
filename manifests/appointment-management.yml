@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-boot-appointment
+  name: appointment
+  labels:
+    name: appointment-management
   namespace: default
 spec:
   replicas: 1
@@ -27,7 +29,18 @@ spec:
           - name: POSTGRES_HOST
             valueFrom:
               configMapKeyRef:
-                name: hostname-config
+                name: config-map-portail
                 key: postgres_host
         image: abdelkarim123/spring-appointment-management:2.0.0
         imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-appointment
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8083
+  selector:
+    app: appointment-management
